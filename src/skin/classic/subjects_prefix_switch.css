@@ -1,0 +1,12 @@
+#subjects_prefix_switchButton {
+  list-style-image: url("chrome://subjects_prefix_switch/skin/sub_switch224.png");
+}
+
+toolbar[iconsize="small"] #subjects_prefix_switchButton {
+  list-style-image: url("chrome://subjects_prefix_switch/skin/sub_switch216.png");
+}
+
+#subjects_prefix_switchMenuPopup-subtoolbarButton {
+  margin-top: 0px;
+  margin-bottom: 4px;
+}

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://subjects_prefix_switch/skin/subjects_prefix_switch.css" type="text/css"?>
+
+<!DOCTYPE window SYSTEM "chrome://subjects_prefix_switch/locale/subjects_prefix_switch.dtd">
+
+<overlay id="subjects_prefix_switchOverlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+ <stringbundleset id="stringbundleset">
+    <stringbundle id="subjects_prefix_switch.locale" src="chrome://subjects_prefix_switch/locale/subjects_prefix_switch.properties"/>
+ </stringbundleset>
+
+ <script type="application/x-javascript" src="chrome://subjects_prefix_switch/content/const.js"/>
+ <script type="application/x-javascript" src="chrome://subjects_prefix_switch/content/utils.js"/>
+ <script type="application/x-javascript" src="chrome://subjects_prefix_switch/content/date_utils.js"/>
+ <script type="application/x-javascript" src="chrome://subjects_prefix_switch/content/items.js"/>
+ <script type="application/x-javascript" src="chrome://subjects_prefix_switch/content/subjects_prefix_switch.js"/>
+
+ <toolbarpalette id="MsgComposeToolbarPalette">
+    <toolbarbutton
+        class="toolbarbutton-1"
+        id="subjects_prefix_switchButton"
+        type="menu-button"
+        label="&subjects_prefix_switch.label.toolbar;"
+        tooltiptext="&subjects_prefix_switch.tooltip.toolbar;"
+        oncommand="com.ktsystems.subswitch.SubSwitchMain.subjects_prefix_switch();">
+            <menupopup id="subjects_prefix_switchMenuPopup-toolbar" onpopupshowing="com.ktsystems.subswitch.SubSwitchMain.initMenuPopup('toolbar');"/>
+    </toolbarbutton>
+ </toolbarpalette>
+
+ <menupopup id="optionsMenuPopup">
+    <menu   id="subjects_prefix_switchMenu"
+            label="&subjects_prefix_switch.label.menu;"
+            insertafter="menu_checkspelling">
+                <menupopup id="subjects_prefix_switchMenuPopup-menu" onpopupshowing="com.ktsystems.subswitch.SubSwitchMain.initMenuPopup('menu');"/>
+    </menu>
+ </menupopup>
+
+ <vbox id="addresses-box">
+ <menulist id="subjects_prefix_switchMenuPopup-subtoolbarButton" align="stretch"
+    crop="right" 
+    class="toolbar" disableonsend="true" >
+    <menupopup id="subjects_prefix_switchMenuPopup-subtoolbar" onpopupshowing="com.ktsystems.subswitch.SubSwitchMain.initMenuPopup('subtoolbar');" flex="1" />
+ </menulist>
+ </vbox>
+
+ <popup id="msgComposeContext">
+    <menu   id="subjects_prefix_switchContext"
+            label="&subjects_prefix_switch.label.context;"
+            insertbefore="context-cut,spellCheckNoSuggestions">
+                <menupopup id="subjects_prefix_switchMenuPopup-context" onpopupshowing="com.ktsystems.subswitch.SubSwitchMain.initMenuPopup('context');"/>
+    </menu>
+    <menuseparator id="subjects_prefix_switchContextSeparator" insertbefore="context-cut,spellCheckNoSuggestions" />
+ </popup>
+
+</overlay>
