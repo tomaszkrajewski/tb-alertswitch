@@ -149,6 +149,12 @@ com.ktsystems.subswitch.OptionsPanel = {
     },
 
     optionsOnLoad : function(){
+		
+		document.addEventListener("dialogaccept", function() {
+			com.ktsystems.subswitch.OptionsPanel.onDialogAccept();
+		}); 
+		
+		
         var elementID;
         var element;
         var eltType;
@@ -321,9 +327,6 @@ this.dumpStr('initTree2');
 
         com.ktsystems.subswitch.PrefixesListSingleton.getInstance().savePrefixesArray(this.rdTreeView.defaultsignature);
         com.ktsystems.subswitch.PrefixesListSingleton.getInstance().savePrefixesSequences();
-    },
-
-    onDialogCancel : function(){
     },
 
     onSelectItem : function() {
@@ -572,9 +575,20 @@ this.dumpStr('initTree2');
             }
         }
 
-        listbox.appendItem(input.value, input.value);
-        listbox.ensureIndexIsVisible(listbox.getRowCount()-1);
-        input.value = "";
+		let newNode = document.createElement("richlistitem");
+
+		// Store the value in the list item as before.
+		newNode.value = input.value; 
+		let newLabel = document.createElement("label");
+		// The label is now stored in the value attribute of the label element.
+		newLabel.value = input.value;
+
+		newNode.appendChild(newLabel);
+		
+		listbox.appendChild(newNode);
+        listbox.ensureIndexIsVisible(listbox.itemCount - 1);
+        
+		input.value = "";
     },
 
     removeAutoswitch : function(type) {
@@ -582,7 +596,7 @@ this.dumpStr('initTree2');
         var selected = listbox.selectedIndex;
 
         if (selected >= 0)
-            listbox.removeItemAt(selected);
+            listbox.getItemAtIndex(selected).remove();
     },
 
     validateAutoswitch : function(input, type) {

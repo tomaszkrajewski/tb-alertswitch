@@ -41,7 +41,12 @@ com.ktsystems.subswitch.SetPrefix = {
     },
 
     setRDOnLoad : function() {
-        var item = this.getItem();
+        
+		document.addEventListener("dialogaccept", function() {
+			com.ktsystems.subswitch.SetPrefix.setRDOnDialogAccept();
+		}); 
+		
+		var item = this.getItem();
 
         if (item) {
             document.getElementById("rd").value = item.rd;
@@ -57,10 +62,11 @@ com.ktsystems.subswitch.SetPrefix = {
                 document.getElementById("rdSequenceValue").disabled = !(com.ktsystems.subswitch.Utils.isTemplateWithSequence(item.rd));
             }
         }
+		
     },
 
     setRDOnDialogAccept : function () {
-        return this.setRDCommonAccept();
+        this.setRDCommonAccept();
     },
 
     onChangeRD : function (value) {
@@ -94,9 +100,6 @@ com.ktsystems.subswitch.SetPrefix = {
             alert(err);
         }
         return isValid;
-    },
-
-    onDialogCancel : function () {
     },
 
     checkDescription : function(){
@@ -141,40 +144,21 @@ com.ktsystems.subswitch.SetPrefix = {
 
     addAlias : function(type) {
         var input = document.getElementById("alias");
-        var listbox = document.getElementById("aliasesList");
-
+        
         if (!this.checkElem(input)) {
             alert(
                 com.ktsystems.subswitch.Utils.getLocalizedMessage("setRD.invalidAlias"));
             return;
         }
-
-        for (var i = 0; i < listbox.getRowCount(); i++) {
-            if (listbox.getItemAtIndex(i).value == input.value) {
-                alert(
-                    com.ktsystems.subswitch.Utils.getLocalizedMessage("setRD.duplicateAlias"));
-                return;
-            }
-        }
-
-        listbox.appendItem(input.value, input.value);
-        listbox.ensureIndexIsVisible(listbox.getRowCount()-1);
-        input.value = "";
-    },
-
-    removeAlias : function(type) {
-        var listbox = document.getElementById("aliasesList");
-        var selected = listbox.selectedIndex;
-
-        if (selected >= 0)
-            listbox.removeItemAt(selected);
+        var newValue = input.value;
+        
+        this.addItemToListBox(input, "aliasesList", newValue, "setRD.duplicateAlias"); 
     },
 
     addAddress : function() {
         var type = document.getElementById("addressType");
         var input = document.getElementById("address");
-        var listbox = document.getElementById("addressList");
-
+        
         var validate = new RegExp(com.ktsystems.subswitch.Const.rx_user + "\@" + com.ktsystems.subswitch.Const.rx_domain);
     
         if (!this.checkElem(input) || !input.value.match(validate)) {
@@ -183,24 +167,49 @@ com.ktsystems.subswitch.SetPrefix = {
             return;
         }
         var newValue = type.selectedItem.value + ' ' + input.value;
-        for (var i = 0; i < listbox.getRowCount(); i++) {
+        
+		this.addItemToListBox(input, "addressList", newValue, "options.duplicateAddress");
+    },
+
+    addItemToListBox : function(input, where, newValue, duplicateMessageKey) {
+		var listbox = document.getElementById(where);
+		
+		for (var i = 0; i < listbox.itemCount; i++) {
             if (listbox.getItemAtIndex(i).value.toLowerCase() == newValue.toLowerCase()) {
                 alert(
-                    com.ktsystems.subswitch.Utils.getLocalizedMessage("options.duplicateAddress"));
+                    com.ktsystems.subswitch.Utils.getLocalizedMessage(duplicateMessageKey));
                 return;
             }
         }
         
-        listbox.appendItem(newValue, newValue);
-        listbox.ensureIndexIsVisible(listbox.getRowCount()-1);
+		let newNode = document.createElement("richlistitem");
+
+		// Store the value in the list item as before.
+		newNode.value = newValue; 
+		let newLabel = document.createElement("label");
+		// The label is now stored in the value attribute of the label element.
+		newLabel.value = newValue;
+
+		newNode.appendChild(newLabel);
+		listbox.appendChild(newNode);
+		
+        listbox.ensureIndexIsVisible(listbox.itemCount - 1);
         input.value = "";
+	},
+	
+	removeAlias : function(type) {
+        this.removeItemFromListBox(type, "aliasesList");
     },
 
     removeAddress : function(type) {
-        var listbox = document.getElementById("addressList");
+        this.removeItemFromListBox(type, "addressList");
+    },
+	
+	removeItemFromListBox : function(type, where) {
+		var listbox = document.getElementById(where);
         var selected = listbox.selectedIndex;
 
         if (selected >= 0)
-            listbox.removeItemAt(selected);
-    }
+            listbox.getItemAtIndex(selected).remove();
+	}
 }

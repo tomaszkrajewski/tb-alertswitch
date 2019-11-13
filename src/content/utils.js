@@ -20,11 +20,12 @@ com.ktsystems.subswitch.Utils = {
     },
 
     openURL : function(aURL) {
-        var uri = Components.classes["@mozilla.org/network/standard-url;1"].createInstance(Components.interfaces.nsIURI);
+        var ioService = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
+		var uri = ioService.newURI(aURL, null, null);
+
         var protocolSvc = Components.classes["@mozilla.org/uriloader/external-protocol-service;1"].getService(Components.interfaces.nsIExternalProtocolService);
 
-        uri.spec = aURL;
-        protocolSvc.loadUrl(uri);
+        protocolSvc.loadURI(uri);
     },
 
     openOptions : function(ev, autosave) {
@@ -44,15 +45,25 @@ com.ktsystems.subswitch.Utils = {
 
     fillListboxFromArray : function (listbox, array) {
         for (var i = 0; i < array.length; i++) {
-            if (array[i] != "-")
-                listbox.appendItem(array[i], array[i]);
+            if (array[i] != "-") {
+                let newNode = document.createElement("richlistitem");
+
+				// Store the value in the list item as before.
+				newNode.value = array[i]; 
+				let newLabel = document.createElement("label");
+				// The label is now stored in the value attribute of the label element.
+				newLabel.value = array[i];
+
+				newNode.appendChild(newLabel);
+				listbox.appendChild(newNode);
+			}
         }
     },
 
     getStringFromListbox : function(listbox){
         var array = "-";
 
-        if (listbox.getRowCount() > 0) {
+        if (listbox.childNodes.length > 0) {
             array = this.getArrayFromListbox(listbox).join(";");
         }
 
@@ -62,8 +73,8 @@ com.ktsystems.subswitch.Utils = {
     getArrayFromListbox : function(listbox){
         var array = new Array();
 
-        if (listbox.getRowCount() > 0) {
-            for (var i = 0; i < listbox.getRowCount(); i++){
+        if (listbox.childNodes.length > 0) {
+            for (var i = 0; i < listbox.childNodes.length; i++){
                 array.push(listbox.getItemAtIndex(i).value);
             }
         }

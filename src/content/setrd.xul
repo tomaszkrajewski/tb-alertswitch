@@ -4,18 +4,16 @@
 <?xml-stylesheet href="chrome://subjects_prefix_switch/skin/options.css" type="text/css"?>
 
 <!DOCTYPE dialog [
-  <!ENTITY % commonDialog SYSTEM "chrome://messenger/locale/messengercompose/addressingWidgetOverlay.dtd">
-  %commonDialog;
+  <!ENTITY % messengercomposeDTD SYSTEM "chrome://messenger/locale/messengercompose/messengercompose.dtd" >
+  %messengercomposeDTD;
   <!ENTITY % dialog1 SYSTEM "chrome://subjects_prefix_switch/locale/subjects_prefix_switch.dtd">
   %dialog1;
-]>
+]>  
 
 <dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
         id="subjects_prefix_switchSetSignature"
         minwidth="300"
         onload="return com.ktsystems.subswitch.SetPrefix.setRDOnLoad();"
-        ondialogaccept="return com.ktsystems.subswitch.SetPrefix.setRDOnDialogAccept();"
-        ondialogcancel="return com.ktsystems.subswitch.SetPrefix.onDialogCancel();"
         buttons="accept,cancel"
         title="&subjects_prefix_switch.label.setrd.title;">
 
@@ -71,18 +69,18 @@
                     oncommand="com.ktsystems.subswitch.SetPrefix.removeAlias('address');"/>
                 <spacer flex="1"/>
             </hbox>
-            <listbox id="aliasesList" seltype="single" rows="4"/>
+            <richlistbox id="aliasesList" seltype="single" rows="4"/>
         </vbox>
         </tabpanel>
         <tabpanel id="addresstab">
         <vbox flex="1">
             <hbox align="center">
                 <menulist id="addressType">
-                  <menupopup>
-                    <menuitem value="To:" label="&toAddr.label;"/>
-                    <menuitem value="CC:"  label="&ccAddr.label;" selected="true"/>
-                    <menuitem value="BCC:" label="&bccAddr.label;" />
-                  </menupopup>
+					<menupopup>
+						<menuitem value="To:" label="&toAddr.label;"/>
+						<menuitem value="CC:"  label="&ccAddr.label;" selected="true"/>
+						<menuitem value="BCC:" label="&bccAddr.label;" />
+					</menupopup>
                 </menulist>
                 <textbox id="address" flex="1" 
                          type="autocomplete"
@@ -105,7 +103,7 @@
                     oncommand="com.ktsystems.subswitch.SetPrefix.removeAddress();"/>
                 <spacer flex="1"/>
             </hbox>
-            <listbox id="addressList" seltype="single" rows="4"/>
+            <richlistbox id="addressList" seltype="single" rows="4"/>
         </vbox>
         </tabpanel>
         <tabpanel id="detailstab">
