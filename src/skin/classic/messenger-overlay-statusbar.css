@@ -1,0 +1,7 @@
+#alert-status[alertEnabled="true"] {
+  list-style-image: url("chrome://alert_switch/skin/alert_green.png");
+}
+
+#alert-status {
+  list-style-image: url("chrome://alert_switch/skin/alert_red.png");
+}

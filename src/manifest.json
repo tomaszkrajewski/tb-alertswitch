@@ -6,11 +6,7 @@
   "author": "{auther}",
   "homepage_url": "https://github.com/tomaszkrajewski/",
   "legacy":  {
-    "type": "xul",
-    "options": {
-      "page": "chrome://{appname}/content/options.xul",
-      "open_in_tab": false
-    }
+    "type": "xul"
   },
   "applications": {
     "gecko": {
@@ -18,10 +14,5 @@
       "strict_min_version": "68.2.0",
       "strict_max_version": "70.*"
     }
-  },
-  "icons": {
-    "16": "icons/sub_switch216.png",
-    "24": "icons/sub_switch224.png",
-    "32": "icons/sub_switch232.png"
-  } 
+  }
 }

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/tb-subswitch-github.iml" filepath="$PROJECT_DIR$/tb-subswitch-github.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tb-alertswitch-github.iml" filepath="$PROJECT_DIR$/tb-alertswitch-github.iml" />
     </modules>
   </component>
 </project>
