@@ -1,20 +1,20 @@
 {
   "manifest_version": 2,
-  "name": "SubSwitch",
-  "description": "Switch on or off the maessage's prefix. Choose a new one from your predefined set.",
+  "name": "{appdisplayname}",
+  "description": "{appdescription}",
   "version": "{appversion}",
-  "author": "Tomasz Krajewski",
-  "homepage_url": "http://subswitch.mozdev.org/",
+  "author": "{auther}",
+  "homepage_url": "https://github.com/tomaszkrajewski/",
   "legacy":  {
     "type": "xul",
     "options": {
-      "page": "chrome://subjects_prefix_switch/content/options.xul",
+      "page": "chrome://{appname}/content/options.xul",
       "open_in_tab": false
     }
   },
   "applications": {
     "gecko": {
-      "id": "{957509b1-217a-46c7-b08b-f67d08d53883}",
+      "id": "{appid}",
       "strict_min_version": "68.2.0",
       "strict_max_version": "70.*"
     }
