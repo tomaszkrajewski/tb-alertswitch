@@ -170,7 +170,7 @@
     <target name="-pre-jar"/>
 
     <target name="-do-jar">
-        <zip destfile="${dist.dir}/${appname}.jar">
+       <zip destfile="${dist.dir}/${appname}.jar">
             <fileset dir="${build.chrome.dir}">
                 <include name="content/**" />
                 <include name="locale/**" />
@@ -180,6 +180,7 @@
                 <exclude name="**/Thumbs.db" />
             </fileset>
         </zip>
+
     </target>
 
     <target name="convert2ascii">
