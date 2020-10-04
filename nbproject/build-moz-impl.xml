@@ -88,12 +88,13 @@
                 <include name="locale/**" />
                 <include name="skin/**" />
                 <include name="icons/**" />
+                <include name="api/**" />
                 <include name="components/**" />
                 <include name="*" />
                 <exclude name="skin/**/*.css" />
                 <exclude name="**/*.manifest" />
                 <exclude name="**/*.properties" />
-                <exclude name="**/*.js" />
+                <!--<exclude name="**/*.js" />-->
                 <exclude name="**/*.rdf" />
                 <exclude name="**/*.dtd" />
                 <exclude name="**/*.xul" />
@@ -263,10 +264,10 @@
     <target name="-pre-dist"/>
 
     <target name="-do-dist" depends="jar,-pre-dist">
-        <delete file="${dist.dir}/chrome.manifest" quiet="true"/>
+        <delete file="${dist.dir}/manifest.json" quiet="true"/>
 
 
-        <copy file="${build.dir}/chrome/chrome.manifest" tofile="${dist.dir}/chrome.manifest" overwrite="true">
+        <copy file="${build.dir}/chrome/manifest.json" tofile="${dist.dir}/manifest.json" overwrite="true">
             <filterchain>
                 <tabstospaces/>
 
@@ -292,7 +293,8 @@
             <fileset dir="${build.dir}/chrome">
                 <include name="components/**" />
                 <include name="icons/**" />
-                <include name="install.rdf" />
+                <include name="api/**" />
+                <include name="background.js" />
                 <include name="manifest.json" />
                 <include name="install.js" />
                 <!--<include name="icon.png" />-->

@@ -5,6 +5,7 @@ if(!com.ktsystems.alertswitch.AlertSwitchStatusBar) com.ktsystems.alertswitch.Al
 
 com.ktsystems.alertswitch.AlertSwitchStatusBar = {
     init : function() {
+        console.log("Init of AlertSwitchStatusBar - init - START");
         try {
             var prefs =  Components.classes["@mozilla.org/preferences-service;1"]
                             .getService(Components.interfaces.nsIPrefService)
@@ -16,6 +17,8 @@ com.ktsystems.alertswitch.AlertSwitchStatusBar = {
         } catch(e) {
             alert('AlertSwitchStatusBar.init-> '+e);
         }
+        console.log("Init of AlertSwitchStatusBar - init - START");
+
     },
 
     toggleAlert : function() {
@@ -55,5 +58,3 @@ com.ktsystems.alertswitch.AlertSwitchStatusBar = {
         }
     }
 };
-
-window.addEventListener("load", com.ktsystems.alertswitch.AlertSwitchStatusBar.init, true);
