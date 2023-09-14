@@ -5,7 +5,7 @@
   "version": "{appversion}",
   "author": "{auther}",
   "homepage_url": "https://github.com/tomaszkrajewski/",
-  "applications": {
+  "browser_specific_settings": {
     "gecko": {
       "id": "{appid}",
       "strict_min_version": "78.0",
