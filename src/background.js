@@ -1,25 +1,32 @@
-async function main() {
-    console.log("Init of alertswitch - START");
-    await messenger.WindowListener.registerDefaultPrefs("defaults/preferences/alert_switch.js");
+browser.browserAction.onClicked.addListener(toggleAlert);
 
-    await messenger.WindowListener.registerChromeUrl([
-        ["content",  "alert_switch",           "jar:chrome/alert_switch.jar!/content/"],
-        ["resource", "alert_switch",           "jar:chrome/alert_switch.jar!/"],
-        ["resource", "alert_switch",           "jar:chrome/alert_switch.jar!/skin/classic/"],
-        ["locale",   "alert_switch", "en-US",  "jar:chrome/alert_switch.jar!/locale/en-US/"],
-        ["locale",   "alert_switch", "pl-PL",  "jar:chrome/alert_switch.jar!/locale/pl-PL/"],
-        ["locale",   "alert_switch", "es-ES",  "jar:chrome/alert_switch.jar!/locale/es-ES/"]
-        ]
-    );
-
-    await messenger.WindowListener.registerWindow(
-        "chrome://messenger/content/messenger.xhtml",
-        "chrome://alert_switch/content/messenger.js");
-
-    await messenger.WindowListener.startListening();
-
-    console.log("Init of alertswitch - END");
-
+async function toggleAlert() {
+    let show_alert = await browser.LegacyPrefs.getPref("mail.biff.show_alert");
+    await browser.LegacyPrefs.setPref("mail.biff.show_alert", !show_alert);
+    await browser.LegacyPrefs.setPref("mail.biff.show_tray_icon", !show_alert);
+    await browser.LegacyPrefs.setPref("mail.biff.play_sound", !show_alert);
+    await updateOfflineUI(!show_alert);
 }
 
-main();
+async function updateOfflineUI(show_alert) {
+    if (show_alert) {
+        await browser.browserAction.setIcon({path:"icons/alert_green.png"})
+        // We set default_label in the manifest to "", which causes our action
+        // button to have no label at all. The title property is now only used
+        // for the tooltip.
+        await browser.browserAction.setTitle({title: browser.i18n.getMessage("alert-status.alertEnabledTooltip")})
+    } else {
+        await browser.browserAction.setIcon({path:"icons/alert_red.png"})
+        // We set default_label in the manifest to "", which causes our action
+        // button to have no label at all. The title property is now only used
+        // for the tooltip.
+        await browser.browserAction.setTitle({title: browser.i18n.getMessage("alert-status.alertDisabledTooltip")})
+    }
+}
+
+// Update the button according to the state at startup.
+let currentState = await browser.LegacyPrefs.getPref("mail.biff.show_alert");
+await updateOfflineUI(currentState);
+
+// TODO: One could use a blue or grey icon as default, which is shown while the
+// add-on is starting and has not updated the icon correctly.
