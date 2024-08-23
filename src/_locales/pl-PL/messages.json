@@ -1,0 +1,11 @@
+{
+    "alert-status.alertDisabledTooltip": {
+        "message": "Powiadomienia o nowych wiadomo\\u015Bciach s\\u0105 wy\\u0142\\u0105czone"
+    },
+    "alert-status.alertEnabledTooltip": {
+        "message": "Powiadomienia o nowych wiadomo\\u015Bciach s\\u0105 w\\u0142\\u0105czone"
+    },
+    "extensionDescription": {
+        "message": "Włącz / wyłącz powiadomienie o odebraniu nowej wiadomości."
+    }
+}

@@ -1,7 +1,0 @@
-#alert-status[alertEnabled="true"] {
-  list-style-image: url("resource://alert_switch/alert_green.png");
-}
-
-#alert-status {
-  list-style-image: url("resource://alert_switch/alert_red.png");
-}

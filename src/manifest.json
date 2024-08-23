@@ -1,29 +1,36 @@
 {
   "manifest_version": 2,
-  "name": "{appdisplayname}",
-  "description": "{appdescription}",
-  "version": "{appversion}",
-  "author": "{auther}",
+  "name": "AlertSwitch",
+  "description": "__MSG_extensionDescription__",
+  "version": "1.0",
+  "author": "Tomasz Krajewski",
   "homepage_url": "https://github.com/tomaszkrajewski/",
   "browser_specific_settings": {
     "gecko": {
-      "id": "{appid}",
-      "strict_min_version": "78.0",
-      "strict_max_version": "115.*"
+      "id": "{25156018-d27b-497e-9777-886502ac65ad}",
+      "strict_min_version": "115.0",
+      "strict_max_version": "130.*"
     }
+  },
+  "browser_action": {
+    "allowed_spaces": [],
+    "default_icon": "icons/alert_red.png",
+    "default_label": ""
   },
   "background": {
     "scripts": [
       "background.js"
-    ]
+    ],
+    "type": "module"
   },
+  "default_locale": "en-US",
   "experiment_apis": {
-    "WindowListener": {
-      "schema": "api/WindowListener/schema.json",
+    "LegacyPrefs": {
+      "schema": "api/LegacyPrefs/schema.json",
       "parent": {
         "scopes": ["addon_parent"],
-        "paths": [["WindowListener"]],
-        "script": "api/WindowListener/implementation.js"
+        "paths": [["LegacyPrefs"]],
+        "script": "api/LegacyPrefs/implementation.js"
       }
     }
   }
